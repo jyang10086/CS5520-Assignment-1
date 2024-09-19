@@ -2,7 +2,12 @@ import React from "react";
 import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Card";
 
-export default function Confirm({ visible, confirmMsg, setVisible }) {
+export default function Confirm({
+  visible,
+  confirmMsg,
+  setVisible,
+  navigateToGame,
+}) {
   return (
     <Modal
       animationType="slide"
@@ -20,12 +25,14 @@ export default function Confirm({ visible, confirmMsg, setVisible }) {
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setVisible(!visible)}
+              color="red"
             >
               <Text style={styles.textStyle}>Go back</Text>
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setVisible(!visible)}
+              onPress={navigateToGame}
+              color="blue"
             >
               <Text style={styles.textStyle}>Continue</Text>
             </Pressable>
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
     rowGap: 50,
   },
   buttonContainer: {
-    alignContent:'center',
+    alignContent: "center",
     flexDirection: "row",
     columnGap: 10,
   },

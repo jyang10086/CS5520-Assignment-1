@@ -12,7 +12,7 @@ import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
 import Confirm from "./Confirm";
 import Card from "../components/Card";
-export default function Start() {
+export default function Start({ navigateToGame }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -121,8 +121,9 @@ export default function Start() {
           <CheckRobot value={isChecked} onCheckedChange={setChecked} />
           {/* Buttons */}
           <View style={styles.buttonContainer}>
-            <Button title="Reset" onPress={handleReset} />
+            <Button title="Reset" onPress={handleReset} color="red" />
             <Button
+              color="blue"
               title="Register"
               onPress={handleRegister}
               disabled={!isChecked}
@@ -132,6 +133,7 @@ export default function Start() {
             visible={isModalVisible}
             confirmMsg={confirmMsg}
             setVisible={setModalVisible}
+            navigateToGame={navigateToGame}
           ></Confirm>
         </Card>
       </View>
