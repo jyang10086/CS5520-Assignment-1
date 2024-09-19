@@ -31,6 +31,27 @@ export default function Start() {
     setErrors({ name: "", email: "", phone: "" });
   };
 
+  // Validation functions
+  const validateName = (name) => {
+    if (!name || /\d/.test(name)) {
+      return 'Name must be more than 1 character and non-numeric.';
+    }
+    return '';
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) ? '' : 'Invalid email format.';
+  };
+
+  const validatePhone = (phone) => {
+    if (phone.length !== 10 || isNaN(phone) || phone.endsWith('0') || phone.endsWith('1')) {
+      return 'Phone must be 10 digits and not end with 0 or 1.';
+    }
+    return '';
+  };
+
+
   return (
     <View style={styles.container}>
       <StartHeader />
