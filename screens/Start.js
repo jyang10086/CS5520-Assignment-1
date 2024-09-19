@@ -11,6 +11,7 @@ import {
 import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
 import Confirm from "./Confirm";
+import Card from "../components/Card";
 export default function Start() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -80,7 +81,7 @@ export default function Start() {
         <StartHeader />
       </View>
       <View style={styles.bottonView}>
-        <View style={styles.card}>
+        <Card>
           {/* Name Input */}
           <Text style={styles.text}>Name</Text>
           <TextInput
@@ -132,7 +133,7 @@ export default function Start() {
             confirmMsg={confirmMsg}
             setVisible={setModalVisible}
           ></Confirm>
-        </View>
+        </Card>
       </View>
     </SafeAreaView>
   );

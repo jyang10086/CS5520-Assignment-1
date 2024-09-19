@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import Card from "../components/Card";
 
 export default function Confirm({ visible, confirmMsg, setVisible }) {
   return (
@@ -13,7 +14,7 @@ export default function Confirm({ visible, confirmMsg, setVisible }) {
       }}
     >
       <View style={styles.container}>
-        <View style={styles.modalView}>
+        <Card style={styles.modalView}>
           <Text style={styles.modalText}>{confirmMsg}</Text>
           <View style={styles.buttonContainer}>
             <Pressable
@@ -29,7 +30,7 @@ export default function Confirm({ visible, confirmMsg, setVisible }) {
               <Text style={styles.textStyle}>Continue</Text>
             </Pressable>
           </View>
-        </View>
+        </Card>
       </View>
     </Modal>
   );
