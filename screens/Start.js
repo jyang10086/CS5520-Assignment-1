@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
-
 export default function Start() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({ name: "", email: "", phone: "" });
+  const [isChecked, setChecked] = useState(false);
 
   const handleNameChange = (value) => {
     setName(value);
@@ -27,7 +28,7 @@ export default function Start() {
     setName("");
     setEmail("");
     setPhone("");
-    setIsCheckboxSelected(false);
+    setChecked(false);
     setErrors({ name: "", email: "", phone: "" });
   };
 
@@ -95,6 +96,8 @@ export default function Start() {
           <Text style={styles.errorText}>{errors.phone}</Text>
         ) : null}
 
+
+        <CheckRobot value={isChecked} onCheckedChange={setChecked} />
         {/* Buttons */}
         <View style={styles.buttonContainer}>
           <Button title="Reset" onPress={handleReset} />
