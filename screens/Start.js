@@ -1,12 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Start from './screens/Start';
+import StartHeader from '../components/StartHeader';
 
-export default function App() {
+export default function Start() {
   return (
     <View style={styles.container}>
-      <Start/>
-      <StatusBar style="auto" />
+      <StartHeader/>
     </View>
   );
 }
