@@ -3,7 +3,7 @@ import CheckBox from "expo-checkbox";
 import React from "react";
 
 export default function CheckRobot({ value, onCheckedChange }) {
-  function changeValueHandler(isChecked) {
+  const changeValueHandler = (isChecked) => {
     onCheckedChange(isChecked);
   }
 

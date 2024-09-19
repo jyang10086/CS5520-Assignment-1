@@ -1,13 +1,24 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
+import {
+  Alert,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  SafeAreaView,
+} from "react-native";
 import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
+import Confirm from "./Confirm";
 export default function Start() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({ name: "", email: "", phone: "" });
   const [isChecked, setChecked] = useState(false);
+  const [confirmMsg, setConfirmMsg] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const handleNameChange = (value) => {
     setName(value);
@@ -30,6 +41,12 @@ export default function Start() {
     setPhone("");
     setChecked(false);
     setErrors({ name: "", email: "", phone: "" });
+  };
+
+  const handleRegister = () => {
+    const msg = `Hello ${name}\nHere is the information you entered:\n${email}\n${phone}\nIf it is not correct, please go back and edit them`;
+    setConfirmMsg(msg);
+    setModalVisible(true);
   };
 
   // Validation functions
@@ -104,8 +121,17 @@ export default function Start() {
           {/* Buttons */}
           <View style={styles.buttonContainer}>
             <Button title="Reset" onPress={handleReset} />
-            <Button title="Register" onPress={() => {}} disabled={!isChecked} />
+            <Button
+              title="Register"
+              onPress={handleRegister}
+              disabled={!isChecked}
+            />
           </View>
+          <Confirm
+            visible={isModalVisible}
+            confirmMsg={confirmMsg}
+            setVisible={setModalVisible}
+          ></Confirm>
         </View>
       </View>
     </SafeAreaView>
@@ -128,13 +154,13 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 10,
-    backgroundColor: 'darkgray',
+    backgroundColor: "darkgray",
     padding: 20,
     justifyContent: "space-around",
     rowGap: 20,
   },
   input: {
-    borderBottomColor: 'indigo',
+    borderBottomColor: "indigo",
     borderBottomWidth: 2,
     color: "indigo",
     fontWeight: "bold",
@@ -151,5 +177,5 @@ const styles = StyleSheet.create({
   errorText: {
     color: "grey",
     fontSize: 15,
-  }
+  },
 });
