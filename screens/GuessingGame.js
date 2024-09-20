@@ -39,7 +39,15 @@ export default function GuessingGame({ userData }) {
   const startGame = () => {
     const randomIndex = Math.floor(Math.random() * multiples.length);
     setCorrectNumber(multiples[randomIndex]);
+    setTimeLeft(60);
+    setAttemptsUsed(0);
     setGameStarted(true);
+  };
+
+  const endGame = (endReason = "") => {
+    setSubmittedGuess(true);
+    setGameOver(true);
+    setEndReason(endReason);
   };
 
   const handleInputValue = (value) => {
@@ -57,9 +65,8 @@ export default function GuessingGame({ userData }) {
       setGameWin(true);
     } else {
       setAttemptsUsed(attemptsUsed + 1);
-      if (attemptsUsed === 4) {
-        setEndReason("out of attempts");
-        setGameOver(true);
+      if (attemptsUsed + 1 === 4) {
+        endGame("out of attempts");
       } else {
         setFeedback(
           inputValue < correctNumber ? "guess higher" : "guess lower"
@@ -79,11 +86,13 @@ export default function GuessingGame({ userData }) {
   };
 
   const handleRestGame = () => {
+    setInputValue("");
+    setEndReason("");
+    setFeedback("");
     setSubmittedGuess(false);
     setGameWin(false);
     setGameOver(false);
     startGame();
-
   };
 
   useEffect(() => {
@@ -95,24 +104,26 @@ export default function GuessingGame({ userData }) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     } else if (timeLeft === 0) {
-      setEndReason("out of time");
-      setGameOver(true);
+      endGame("out of time");
     }
   }, [timeLeft, gameStarted]);
+  if (!gameStarted) {
+    return (
+      <Card>
+        <View>
+          <Text>
+            Guess a number between 1 & 100 that is a multiple of {multiply}
+          </Text>
+          <Button title="Start" onPress={startGame} color="blue" />
+        </View>
+      </Card>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Card>
-        {!gameStarted && !submittedGuess && !gameWin && (
-          <View>
-            <Text>
-              Guess a number between 1 & 100 that is a multiple of {multiply}
-            </Text>
-            <Button title="Start" onPress={startGame} color="blue" />
-          </View>
-        )}
-
-        {gameStarted && !submittedGuess && !gameWin && (
+        {!submittedGuess && (
           <View>
             <Text>
               Guess a number between 1 & 100 that is a multiple of {multiply}
@@ -137,7 +148,7 @@ export default function GuessingGame({ userData }) {
           </View>
         )}
 
-        {gameStarted && submittedGuess && gameWin && (
+        {submittedGuess && gameWin && (
           <View>
             <Text>
               Congratulations! You guessed the number in {attemptsUsed}{" "}
@@ -153,7 +164,7 @@ export default function GuessingGame({ userData }) {
           </View>
         )}
 
-        {gameStarted && submittedGuess && !gameWin && !gameOver && (
+        {submittedGuess && !gameWin && !gameOver && (
           <View>
             <Text>You did not guess correct! You should {feedback}.</Text>
             <Button title="Try Again" onPress={handleTryAgain} color="blue" />
@@ -161,7 +172,7 @@ export default function GuessingGame({ userData }) {
           </View>
         )}
 
-        {gameStarted && submittedGuess && !gameWin && gameOver && (
+        {submittedGuess && !gameWin && gameOver && (
           <View>
             <Text>The game is over!</Text>
             <Image
