@@ -9,9 +9,10 @@ import {
   View,
 } from "react-native";
 import Card from "../components/Card";
-export default function GuessingGame({ userData, resetGame, setGameOver }) {
+export default function GuessingGame({ userData }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameWin, setGameWin] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [submittedGuess, setSubmittedGuess] = useState(false);
 
   const [multiply, setMultiply] = useState(null);
@@ -23,6 +24,7 @@ export default function GuessingGame({ userData, resetGame, setGameOver }) {
   const [timeLeft, setTimeLeft] = useState(60);
   const [attemptsUsed, setAttemptsUsed] = useState(0);
   const [feedback, setFeedback] = useState("");
+  const [endReason, setEndReason] = useState("");
 
   const gameInit = () => {
     const lastDigit = userData.phone[userData.phone.length - 1];
@@ -56,7 +58,8 @@ export default function GuessingGame({ userData, resetGame, setGameOver }) {
     } else {
       setAttemptsUsed(attemptsUsed + 1);
       if (attemptsUsed === 4) {
-        // endGame
+        setEndReason("out of attempts");
+        setGameOver(true);
       } else {
         setFeedback(
           inputValue < correctNumber ? "guess higher" : "guess lower"
@@ -71,6 +74,18 @@ export default function GuessingGame({ userData, resetGame, setGameOver }) {
     setInputValue("");
   };
 
+  const handleEndGame = () => {
+    setGameOver(true);
+  };
+
+  const handleRestGame = () => {
+    setSubmittedGuess(false);
+    setGameWin(false);
+    setGameOver(false);
+    startGame();
+
+  };
+
   useEffect(() => {
     gameInit();
   }, []);
@@ -80,7 +95,8 @@ export default function GuessingGame({ userData, resetGame, setGameOver }) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     } else if (timeLeft === 0) {
-      // endGame
+      setEndReason("out of time");
+      setGameOver(true);
     }
   }, [timeLeft, gameStarted]);
 
@@ -133,19 +149,27 @@ export default function GuessingGame({ userData, resetGame, setGameOver }) {
               }}
               style={{ width: 100, height: 100 }}
             />
-            <Button title="New Game" onPress={resetGame} color="blue" />
+            <Button title="New Game" onPress={handleRestGame} color="blue" />
           </View>
         )}
 
-        {gameStarted && submittedGuess && !gameWin && (
+        {gameStarted && submittedGuess && !gameWin && !gameOver && (
           <View>
             <Text>You did not guess correct! You should {feedback}.</Text>
             <Button title="Try Again" onPress={handleTryAgain} color="blue" />
-            <Button
-              title="End the Game"
-              onPress={() => setGameOver(true)} // End the game
-              color="blue"
+            <Button title="End the Game" onPress={handleEndGame} color="blue" />
+          </View>
+        )}
+
+        {gameStarted && submittedGuess && !gameWin && gameOver && (
+          <View>
+            <Text>The game is over!</Text>
+            <Image
+              source={require("../assets/sad-smiley.png")}
+              style={{ width: 150, height: 150 }}
             />
+            <Text>{endReason}</Text>
+            <Button title="New Game" onPress={handleRestGame} color="blue" />
           </View>
         )}
       </Card>
