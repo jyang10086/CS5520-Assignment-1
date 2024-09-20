@@ -6,16 +6,24 @@ import GuessingGame from "./screens/GuessingGame";
 
 export default function App() {
   const [isGameReady, setIsGameReady] = useState(false);
-
+  const [userData, setUserData] = useState({
+    name: null,
+    email: null,
+    phone: null,
+  });
   const navigateToGame = () => {
     setIsGameReady(true);
   };
   return (
     <View style={styles.container}>
       {isGameReady ? (
-        <GuessingGame></GuessingGame>
+        <GuessingGame userData={userData}></GuessingGame>
       ) : (
-        <Start navigateToGame={navigateToGame} />
+        <Start
+          userData={userData}
+          setUserData={setUserData}
+          navigateToGame={navigateToGame}
+        />
       )}
       <StatusBar style="auto" />
     </View>

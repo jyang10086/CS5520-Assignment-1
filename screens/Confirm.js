@@ -4,23 +4,17 @@ import Card from "../components/Card";
 
 export default function Confirm({
   visible,
-  confirmMsg,
   setVisible,
   navigateToGame,
+  userData,
 }) {
+  const { name, email, phone } = userData;
+  const msg = `Hello ${name}\nHere is the information you entered:\n${email}\n${phone}\nIf it is not correct, please go back and edit them`;
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setVisible(!visible);
-      }}
-    >
+    <Modal animationType="slide" transparent={true} visible={visible}>
       <View style={styles.container}>
         <Card style={styles.modalView}>
-          <Text style={styles.modalText}>{confirmMsg}</Text>
+          <Text style={styles.modalText}>{msg}</Text>
           <View style={styles.buttonContainer}>
             <Pressable
               style={[styles.button, styles.buttonClose]}

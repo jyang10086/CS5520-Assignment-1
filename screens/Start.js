@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Alert,
   Button,
   StyleSheet,
   Text,
@@ -12,13 +11,12 @@ import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
 import Confirm from "./Confirm";
 import Card from "../components/Card";
-export default function Start({ navigateToGame }) {
+export default function Start({ navigateToGame, userData, setUserData }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({ name: "", email: "", phone: "" });
   const [isChecked, setChecked] = useState(false);
-  const [confirmMsg, setConfirmMsg] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handleNameChange = (value) => {
@@ -45,8 +43,11 @@ export default function Start({ navigateToGame }) {
   };
 
   const handleRegister = () => {
-    const msg = `Hello ${name}\nHere is the information you entered:\n${email}\n${phone}\nIf it is not correct, please go back and edit them`;
-    setConfirmMsg(msg);
+    setUserData({
+      name,
+      email,
+      phone,
+    });
     setModalVisible(true);
   };
 
@@ -131,9 +132,9 @@ export default function Start({ navigateToGame }) {
           </View>
           <Confirm
             visible={isModalVisible}
-            confirmMsg={confirmMsg}
             setVisible={setModalVisible}
             navigateToGame={navigateToGame}
+            userData={userData}
           ></Confirm>
         </Card>
       </View>
