@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import Start from "./screens/Start";
 import GuessingGame from "./screens/GuessingGame";
 
@@ -14,10 +14,18 @@ export default function App() {
   const navigateToGame = () => {
     setIsGameReady(true);
   };
+
+  const backToStart = () => {
+    setIsGameReady(false);
+  };
+
   return (
     <View style={styles.container}>
       {isGameReady ? (
-        <GuessingGame userData={userData}></GuessingGame>
+        <View>
+          <Button title="Restart" onPress={backToStart} />
+          <GuessingGame userData={userData}></GuessingGame>
+        </View>
       ) : (
         <Start
           userData={userData}
