@@ -25,6 +25,8 @@ export default function GuessingGame({ userData }) {
   const [attemptsUsed, setAttemptsUsed] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [endReason, setEndReason] = useState("");
+  const [hint, setHint] = useState("");
+  const [showHint, setShowHint] = useState(false);
 
   const gameInit = () => {
     const lastDigit = userData.phone[userData.phone.length - 1];
@@ -38,10 +40,16 @@ export default function GuessingGame({ userData }) {
 
   const startGame = () => {
     const randomIndex = Math.floor(Math.random() * multiples.length);
-    setCorrectNumber(multiples[randomIndex]);
+    const number = multiples[randomIndex];
+    const hint =
+      number >= 50
+        ? "The number is between 50 and 100."
+        : "The number is less than 50.";
+    setCorrectNumber(number);
     setTimeLeft(60);
     setAttemptsUsed(0);
     setGameStarted(true);
+    setHint(hint);
   };
 
   const endGame = (endReason = "") => {
@@ -76,6 +84,10 @@ export default function GuessingGame({ userData }) {
     setSubmittedGuess(true);
   };
 
+  const handleUseHint = () => {
+    setShowHint(true);
+  };
+
   const handleTryAgain = () => {
     setSubmittedGuess(false);
     setInputValue("");
@@ -89,6 +101,7 @@ export default function GuessingGame({ userData }) {
     setInputValue("");
     setEndReason("");
     setFeedback("");
+    setShowHint(false);
     setSubmittedGuess(false);
     setGameWin(false);
     setGameOver(false);
@@ -134,14 +147,15 @@ export default function GuessingGame({ userData }) {
               onChangeText={handleInputValue}
               keyboardType="numeric"
             />
+            {showHint && <Text>{hint}</Text>}
             <Text>Time left: {timeLeft}s</Text>
             <Text>Attempts left: {4 - attemptsUsed}</Text>
 
             <View style={styles.buttonContainer}>
               <Button
                 title="Use a hint"
-                onPress={() => {}}
-                disabled={!inputValue}
+                onPress={handleUseHint}
+                disabled={showHint}
               />
               <Button title="Submit guess" onPress={handleGuess} />
             </View>
