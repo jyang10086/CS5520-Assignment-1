@@ -120,7 +120,6 @@ export default function Start({ navigateToGame, userData, setUserData }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     minWidth: "90%",
     maxWidth: "90%",
   },
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
   },
   text: {
     fontSize: 20,

@@ -143,19 +143,17 @@ export default function GuessingGame({ userData }) {
             <Text>Time left: {timeLeft}s</Text>
             <Text>Attempts left: {4 - attemptsUsed}</Text>
 
-            <View style={styles.buttonContainer}>
-              <Button
-                title="Use a hint"
-                onPress={handleUseHint}
-                disabled={showHint}
-              />
-              <Button title="Submit guess" onPress={handleGuess} />
-            </View>
+            <Button
+              title="Use a hint"
+              onPress={handleUseHint}
+              disabled={showHint}
+            />
+            <Button title="Submit guess" onPress={handleGuess} />
           </View>
         )}
 
         {submittedGuess && gameWin && (
-          <View>
+          <View style={styles.guessView}>
             <Text>
               Congratulations! You guessed the number in {attemptsUsed}{" "}
               attempts!
@@ -179,7 +177,7 @@ export default function GuessingGame({ userData }) {
         )}
 
         {submittedGuess && !gameWin && gameOver && (
-          <View>
+          <View style={styles.guessView}>
             <Text>The game is over!</Text>
             <Image
               source={require("../assets/sad-smiley.png")}
@@ -197,5 +195,6 @@ export default function GuessingGame({ userData }) {
 const styles = StyleSheet.create({
   guessView: {
     alignItems: "center",
+    rowGap: 10,
   },
 });

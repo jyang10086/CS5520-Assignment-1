@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, Button, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Card";
 
 export default function Confirm({
@@ -16,20 +16,12 @@ export default function Confirm({
         <Card style={styles.modalView}>
           <Text style={styles.modalText}>{msg}</Text>
           <View style={styles.buttonContainer}>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
+            <Button
+              title="Go back"
               onPress={() => setVisible(!visible)}
               color="red"
-            >
-              <Text style={styles.textStyle}>Go back</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={navigateToGame}
-              color="blue"
-            >
-              <Text style={styles.textStyle}>Continue</Text>
-            </Pressable>
+            />
+            <Button title="Continue" onPress={navigateToGame} color="blue" />
           </View>
         </Card>
       </View>
@@ -45,9 +37,8 @@ const styles = StyleSheet.create({
     rowGap: 50,
   },
   buttonContainer: {
-    alignContent: "center",
     flexDirection: "row",
-    columnGap: 10,
+    justifyContent: "space-evenly",
   },
   modalText: {
     fontSize: 15,

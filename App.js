@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, View } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 import Start from "./screens/Start";
 import GuessingGame from "./screens/GuessingGame";
 
@@ -22,13 +22,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['blue', 'red']}
-        style={styles.background}
-      />
+      <LinearGradient colors={["blue", "red"]} style={styles.background} />
       {isGameReady ? (
         <View>
-          <Button title="Restart" onPress={backToStart} />
+          <View style={styles.restartView}>
+            <Button title="Restart" onPress={backToStart} />
+          </View>
           <GuessingGame userData={userData}></GuessingGame>
         </View>
       ) : (
@@ -46,7 +45,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -57,4 +55,7 @@ const styles = StyleSheet.create({
     top: 0,
     height: "100%",
   },
+  restartView: {
+    alignSelf:'flex-end'
+  }
 });

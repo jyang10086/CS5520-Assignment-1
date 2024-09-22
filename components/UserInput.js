@@ -24,5 +24,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: color.mainTextColor,
     fontWeight: "bold",
+    minWidth: '20%'
   },
 });
