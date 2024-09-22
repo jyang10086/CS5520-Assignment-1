@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Alert,
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Button, Image, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Card";
+import UserInput from "../components/UserInput";
 export default function GuessingGame({ userData }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameWin, setGameWin] = useState(false);
@@ -24,7 +17,7 @@ export default function GuessingGame({ userData }) {
   const [timeLeft, setTimeLeft] = useState(60);
   const [attemptsUsed, setAttemptsUsed] = useState(0);
   const [feedback, setFeedback] = useState("");
-  const [endReason, setEndReason] = useState("");
+  const [endReason, setEndReason] = useState(null);
   const [hint, setHint] = useState("");
   const [showHint, setShowHint] = useState(false);
 
@@ -99,7 +92,7 @@ export default function GuessingGame({ userData }) {
 
   const handleRestGame = () => {
     setInputValue("");
-    setEndReason("");
+    setEndReason(null);
     setFeedback("");
     setShowHint(false);
     setSubmittedGuess(false);
@@ -137,16 +130,15 @@ export default function GuessingGame({ userData }) {
     <View style={styles.container}>
       <Card>
         {!submittedGuess && (
-          <View>
+          <View style={styles.guessView}>
             <Text>
               Guess a number between 1 & 100 that is a multiple of {multiply}
             </Text>
-            <TextInput
-              style={styles.input}
+            <UserInput
               value={inputValue}
-              onChangeText={handleInputValue}
-              keyboardType="numeric"
-            />
+              onchange={handleInputValue}
+            ></UserInput>
+
             {showHint && <Text>{hint}</Text>}
             <Text>Time left: {timeLeft}s</Text>
             <Text>Attempts left: {4 - attemptsUsed}</Text>
@@ -193,7 +185,7 @@ export default function GuessingGame({ userData }) {
               source={require("../assets/sad-smiley.png")}
               style={{ width: 150, height: 150 }}
             />
-            <Text>{endReason}</Text>
+            {endReason && <Text>You are {endReason}.</Text>}
             <Button title="New Game" onPress={handleRestGame} color="blue" />
           </View>
         )}
@@ -202,4 +194,8 @@ export default function GuessingGame({ userData }) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  guessView: {
+    alignItems: "center",
+  },
+});

@@ -1,16 +1,10 @@
 import { useState } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { Button, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
 import Confirm from "./Confirm";
 import Card from "../components/Card";
+import UserInput from "../components/UserInput";
 export default function Start({ navigateToGame, userData, setUserData }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -51,7 +45,6 @@ export default function Start({ navigateToGame, userData, setUserData }) {
     setModalVisible(true);
   };
 
-  // Validation functions
   const validateName = (name) => {
     if (!name || /\d/.test(name)) {
       return "Name must be more than 1 character and non-numeric.";
@@ -83,38 +76,20 @@ export default function Start({ navigateToGame, userData, setUserData }) {
       </View>
       <View style={styles.bottonView}>
         <Card>
-          {/* Name Input */}
           <Text style={styles.text}>Name</Text>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={handleNameChange}
-          />
+          <UserInput value={name} onchange={handleNameChange}></UserInput>
           {errors.name ? (
             <Text style={styles.errorText}>{errors.name}</Text>
           ) : null}
 
-          {/* Email Input */}
           <Text style={styles.text}>Email</Text>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={handleEmailChange}
-            keyboardType="email-address"
-          />
+          <UserInput value={email} onchange={handleEmailChange}></UserInput>
           {errors.email ? (
             <Text style={styles.errorText}>{errors.email}</Text>
           ) : null}
 
-          {/* Phone Input */}
           <Text style={styles.text}>Phone</Text>
-          <TextInput
-            style={styles.input}
-            value={phone}
-            onChangeText={handlePhoneChange}
-            keyboardType="number-pad"
-            maxLength={10}
-          />
+          <UserInput value={phone} onchange={handlePhoneChange}></UserInput>
           {errors.phone ? (
             <Text style={styles.errorText}>{errors.phone}</Text>
           ) : null}
@@ -146,6 +121,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    minWidth: "90%",
+    maxWidth: "90%",
   },
   topView: {
     marginTop: 10,
@@ -154,20 +131,6 @@ const styles = StyleSheet.create({
   },
   bottonView: {
     flex: 9,
-    // alignItems: "center",
-  },
-  card: {
-    borderRadius: 10,
-    backgroundColor: "darkgray",
-    padding: 20,
-    justifyContent: "space-around",
-    rowGap: 20,
-  },
-  input: {
-    borderBottomColor: "indigo",
-    borderBottomWidth: 2,
-    color: "indigo",
-    fontWeight: "bold",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -176,7 +139,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: "indigo",
-    marginBottom: 10,
   },
   errorText: {
     color: "grey",
