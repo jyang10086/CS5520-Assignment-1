@@ -6,6 +6,7 @@ import Confirm from "./Confirm";
 import Card from "../components/Card";
 import UserInput from "../components/UserInput";
 import InvalidTextError from "../components/InvalidTextError";
+import * as color from "../Color";
 export default function Start({ navigateToGame, userData, setUserData }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
   },
   topView: {
-    marginTop: 10,
+    marginTop: 30,
     flex: 1,
     alignItems: "center",
   },
@@ -132,10 +133,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: "indigo",
-  },
-  errorText: {
-    color: "grey",
-    fontSize: 15,
+    color: color.mainTextColor,
   },
 });

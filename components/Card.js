@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Platform } from "react-native";
+import * as color from "../Color";
 export default function Card({ cardStyles, children }) {
   const systemStyle =
     Platform.OS === "ios" ? styles.cardIOS : styles.cardAndroid;
@@ -10,7 +11,7 @@ export default function Card({ cardStyles, children }) {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
-    backgroundColor: "darkgray",
+    backgroundColor: color.cardBgColor,
     padding: 20,
     justifyContent: "space-around",
     rowGap: 20,

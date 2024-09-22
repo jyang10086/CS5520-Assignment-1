@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import CheckBox from "expo-checkbox";
 import React from "react";
+import * as color from "../Color";
 
 export default function CheckRobot({ value, onCheckedChange }) {
   const changeValueHandler = (isChecked) => {
     onCheckedChange(isChecked);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -22,6 +23,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color: 'indigo',
+    color: color.mainTextColor,
   },
 });

@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert, Modal, Button, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Card";
+import * as color from "../Color";
 
 export default function Confirm({
   visible,
@@ -41,13 +42,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   modalText: {
-    fontSize: 15,
-    color: "indigo",
+    fontSize: 20,
+    color: color.mainTextColor,
   },
   modalView: {
     width: 300,
     height: 200,
     padding: 20,
-    backgroundColor: "darkgray",
+    backgroundColor: color.cardBgColor,
   },
 });

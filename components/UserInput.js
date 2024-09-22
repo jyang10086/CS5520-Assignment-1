@@ -13,6 +13,7 @@ export default function UserInput({ value, onchange }) {
         style={styles.input}
         value={value}
         onChangeText={handleTextChange}
+        textAlign='center'
       />
     </View>
   );

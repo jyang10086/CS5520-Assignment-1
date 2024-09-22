@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Alert, Button, Image, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Card";
 import UserInput from "../components/UserInput";
+import * as color from "../Color";
+
 export default function GuessingGame({ userData }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameWin, setGameWin] = useState(false);
@@ -61,7 +63,7 @@ export default function GuessingGame({ userData }) {
       Alert.alert("Invalid Input", "Please enter a number between 1 and 100");
       return;
     }
-    console.log("win", correctNumber);
+    console.log("correct number:", correctNumber);
     if (value === correctNumber) {
       setGameWin(true);
     } else {
@@ -116,8 +118,8 @@ export default function GuessingGame({ userData }) {
   if (!gameStarted) {
     return (
       <Card>
-        <View>
-          <Text>
+        <View style={styles.guessView}>
+          <Text style={styles.text}>
             Guess a number between 1 & 100 that is a multiple of {multiply}
           </Text>
           <Button title="Start" onPress={startGame} color="blue" />
@@ -131,7 +133,7 @@ export default function GuessingGame({ userData }) {
       <Card>
         {!submittedGuess && (
           <View style={styles.guessView}>
-            <Text>
+            <Text style={styles.text}>
               Guess a number between 1 & 100 that is a multiple of {multiply}
             </Text>
             <UserInput
@@ -139,7 +141,7 @@ export default function GuessingGame({ userData }) {
               onchange={handleInputValue}
             ></UserInput>
 
-            {showHint && <Text>{hint}</Text>}
+            {showHint && <Text style={styles.hintText}>{hint}</Text>}
             <Text>Time left: {timeLeft}s</Text>
             <Text>Attempts left: {4 - attemptsUsed}</Text>
 
@@ -147,30 +149,32 @@ export default function GuessingGame({ userData }) {
               title="Use a hint"
               onPress={handleUseHint}
               disabled={showHint}
+              color="blue"
             />
-            <Button title="Submit guess" onPress={handleGuess} />
+            <Button title="Submit guess" onPress={handleGuess} color="blue" />
           </View>
         )}
 
         {submittedGuess && gameWin && (
           <View style={styles.guessView}>
-            <Text>
-              Congratulations! You guessed the number in {attemptsUsed}{" "}
-              attempts!
+            <Text style={styles.text}>
+              You guessed correctly!{"\n"} Attempts used: {attemptsUsed}{" "}
             </Text>
             <Image
               source={{
                 uri: `https://picsum.photos/id/${correctNumber}/100/100`,
               }}
-              style={{ width: 100, height: 100 }}
+              style={styles.image}
             />
             <Button title="New Game" onPress={handleRestGame} color="blue" />
           </View>
         )}
 
         {submittedGuess && !gameWin && !gameOver && (
-          <View>
-            <Text>You did not guess correct! You should {feedback}.</Text>
+          <View style={styles.guessView}>
+            <Text style={styles.text}>
+              You did not guess correct! You should {feedback}.
+            </Text>
             <Button title="Try Again" onPress={handleTryAgain} color="blue" />
             <Button title="End the Game" onPress={handleEndGame} color="blue" />
           </View>
@@ -178,12 +182,12 @@ export default function GuessingGame({ userData }) {
 
         {submittedGuess && !gameWin && gameOver && (
           <View style={styles.guessView}>
-            <Text>The game is over!</Text>
+            <Text style={styles.text}>The game is over!</Text>
             <Image
               source={require("../assets/sad-smiley.png")}
-              style={{ width: 150, height: 150 }}
+              style={styles.image}
             />
-            {endReason && <Text>You are {endReason}.</Text>}
+            {endReason && <Text style={styles.text}>You are {endReason}.</Text>}
             <Button title="New Game" onPress={handleRestGame} color="blue" />
           </View>
         )}
@@ -196,5 +200,17 @@ const styles = StyleSheet.create({
   guessView: {
     alignItems: "center",
     rowGap: 10,
+  },
+  text: {
+    fontSize: 20,
+    color: color.mainTextColor,
+  },
+  hintText: {
+    fontSize: 18,
+    color: color.hintText,
+  },
+  image: {
+    width: 150,
+    height: 150,
   },
 });

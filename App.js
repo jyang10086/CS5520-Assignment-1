@@ -4,6 +4,7 @@ import { Button, StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Start from "./screens/Start";
 import GuessingGame from "./screens/GuessingGame";
+import * as color from "./Color";
 
 export default function App() {
   const [isGameReady, setIsGameReady] = useState(false);
@@ -22,9 +23,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient colors={["blue", "red"]} style={styles.background} />
+      <LinearGradient
+        colors={[color.skyblue, color.steelblue]}
+        style={styles.background}
+      />
       {isGameReady ? (
-        <View>
+        <View style={styles.gameView}>
           <View style={styles.restartView}>
             <Button title="Restart" onPress={backToStart} />
           </View>
@@ -55,7 +59,11 @@ const styles = StyleSheet.create({
     top: 0,
     height: "100%",
   },
+  gameView: {
+    minWidth: "80%",
+    rowGap: 20,
+  },
   restartView: {
-    alignSelf:'flex-end'
-  }
+    alignSelf: "flex-end",
+  },
 });
