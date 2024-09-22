@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { Alert, Button, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import CheckRobot from "./../components/CheckRobot";
 import StartHeader from "../components/StartHeader";
 import Confirm from "./Confirm";
@@ -39,6 +39,10 @@ export default function Start({ navigateToGame, userData, setUserData }) {
   };
 
   const handleRegister = () => {
+    if (errors.name || errors.email || errors.phone) {
+      Alert.alert("Invalid Input", "Please check input values.");
+      return;
+    }
     setUserData({
       name,
       email,

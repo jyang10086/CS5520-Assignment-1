@@ -10,7 +10,7 @@ export default function Confirm({
   userData,
 }) {
   const { name, email, phone } = userData;
-  const msg = `Hello ${name}\nHere is the information you entered:\n${email}\n${phone}\nIf it is not correct, please go back and edit them`;
+  const msg = `Hello ${name}\nHere is the information you entered:\n${email}\n${phone}\nIf it is not correct, please go back and edit them.`;
   return (
     <Modal animationType="slide" transparent={true} visible={visible}>
       <View style={styles.container}>

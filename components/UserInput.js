@@ -10,6 +10,7 @@ export default function UserInput({ value, onchange }) {
   return (
     <View style={styles.input}>
       <TextInput
+        autoCapitalize="none"
         style={styles.input}
         value={value}
         onChangeText={handleTextChange}
