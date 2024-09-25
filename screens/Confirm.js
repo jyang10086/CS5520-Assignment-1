@@ -1,5 +1,6 @@
 import React from "react";
-import { Alert, Modal, Button, StyleSheet, Text, View } from "react-native";
+import { Modal, Button, StyleSheet, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import Card from "../components/Card";
 import * as color from "../Color";
 
@@ -13,6 +14,10 @@ export default function Confirm({
   const msg = `Hello ${name}\nHere is the information you entered:\n${email}\n${phone}\nIf it is not correct, please go back and edit them.`;
   return (
     <Modal animationType="slide" transparent={true} visible={visible}>
+      <LinearGradient
+        colors={color.modalGradientTransparent}
+        style={styles.background}
+      />
       <View style={styles.container}>
         <Card style={styles.modalView}>
           <Text style={styles.modalText}>{msg}</Text>
@@ -50,5 +55,12 @@ const styles = StyleSheet.create({
     height: 200,
     padding: 20,
     backgroundColor: color.cardBgColor,
+  },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "100%",
   },
 });
